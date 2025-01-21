@@ -1,0 +1,253 @@
+@import "./normalize.scss";
+@import "./reset.scss";
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 15px;
+}
+
+.autocomplete {
+  position: relative;
+  width: 100%;
+
+  & > div {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding: 10px 40px 10px 10px;
+      box-sizing: border-box;
+      border-radius: 10px;
+
+      font-size: 14px;
+      font-weight: 400;
+
+      transition: 0.5s;
+
+      &::placeholder {
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translate(0, -50%);
+
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          transition: 0.5s;
+        }
+      }
+    }
+  }
+
+  & > article {
+    width: 100%;
+    max-height: 185px;
+    padding: 15px 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+    position: absolute;
+    z-index: 1;
+    right: 0;
+
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transition: 0.5s;
+
+    &.downwards {
+      top: calc(100% + 2px);
+    }
+
+    &.upwards {
+      bottom: calc(100% + 2px);
+    }
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      li {
+        button {
+          width: 100%;
+          transition: 0.5s;
+
+          font-size: 14px;
+          font-weight: 400;
+          text-align: left;
+        }
+      }
+    }
+
+    & > article {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      display: flex;
+      align-items: center;
+      gap: 2px;
+
+      span {
+        min-width: 5px;
+        min-height: 5px;
+        border-radius: 50%;
+      }
+
+      span:nth-child(1) {
+        animation: loader 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      }
+
+      span:nth-child(2) {
+        animation: loader 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      }
+
+      span:nth-child(3) {
+        animation: loader 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      }
+    }
+  }
+}
+
+@keyframes loader {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.4);
+    opacity: 0.1;
+  }
+}
+
+.autocomplete.primary {
+  & > div {
+    input {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #000;
+
+      &::placeholder {
+        color: #ccc;
+      }
+    }
+
+    & > button {
+      & > svg {
+        stroke: #fff !important;
+      }
+
+      & > div > svg {
+        fill: #fff !important;
+      }
+    }
+  }
+
+  & > article {
+    border: 1px solid #fff;
+    background-color: #000;
+
+    &::-webkit-scrollbar-track {
+      background-color: #ccc;
+    }
+
+    ul {
+      li {
+        button {
+          color: #fff;
+
+          @media (any-hover: hover) {
+            &:hover {
+              color: #ccc;
+            }
+          }
+        }
+      }
+    }
+
+    & > article {
+      span {
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+.autocomplete.secondary {
+  & > div {
+    input {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #fff;
+
+      &::placeholder {
+        color: #ccc;
+      }
+    }
+
+    & > button {
+      & > svg {
+        stroke: #000 !important;
+      }
+
+      & > div > svg {
+        fill: #000 !important;
+      }
+    }
+  }
+
+  & > article {
+    border: 1px solid #000;
+    background-color: #fff;
+
+    &::-webkit-scrollbar-track {
+      background-color: #ccc;
+    }
+
+    ul {
+      li {
+        button {
+          color: #000;
+
+          @media (any-hover: hover) {
+            &:hover {
+              color: #ccc;
+            }
+          }
+        }
+      }
+    }
+
+    & > article {
+      span {
+        background-color: #000;
+      }
+    }
+  }
+}
